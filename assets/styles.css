@@ -1,0 +1,275 @@
+/* Colors */
+:root {
+    --dark-blue: #333f54;
+    --light-gray-blue-a: #3a3f44;
+    --light-gray-blue-b: #CFD6E2;
+    --light-gray: #E6EBF3;
+}
+
+/* Header and footer*/
+.h2 {
+    font-size: 5rem;
+}
+
+.footer-fcd {
+    font-size: 3rem;
+}
+
+.header-container {
+    background: var(--dark-blue);
+    width: 100%;
+    text-align: center;
+    padding: calc(0.75rem + 1vw);
+}
+
+.footer-container {
+    background: var(--light-gray);
+    text-align: center;
+    padding: calc(0.75rem + 1vw);
+    margin-bottom: 20rem;
+}
+
+.footer-buttons {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  background-color: var(--dark-blue)
+}
+
+/* Headings and texts */
+.labels {
+    font-weight: bold;
+    color: var(--dark-blue);
+    font-size: calc(4rem + 1vw);
+    width: 100%;
+    text-align: center;
+}
+
+.labels-white {
+    font-weight: bold;
+    color: #fff;
+    font-size: calc(4rem + 1vw);
+    width: 100%;
+    text-align: center;
+}
+
+.heading-container {;
+    margin-top: calc(1.5rem + 1vw);
+}
+
+.p-texts {
+    color: gray;
+    font-size: calc(2rem + 1vw);
+    padding: calc(2rem + 1vw);
+    text-align: center;
+}
+
+.p-texts-white {
+    color: #fff;
+    font-size: calc(2rem + 1vw);
+    padding: calc(2rem + 1vw);
+    text-align: center;
+}
+
+.p-texts-small {
+    color: gray;
+    font-size: calc(1.5rem + 1vw);
+}
+
+.p-texts-small-white {
+    color: #fff;
+    font-size: calc(1rem + 1vw);
+}
+
+.indicator {
+    color: --dark-blue;
+    font-size: calc(6rem + 1vw);
+    font-weight: bold;
+}
+
+.indicator-white {
+    color: #fff;
+    font-size: calc(6rem + 1vw);
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Backgrounds */
+.photo-background{
+    /*background-image: linear-gradient(var(--light-gray-blue-a), var(--light-gray-blue-b));*/
+    /*background-image: url(https://drive.google.com/uc?export=view&id=1Yv3ouwoGHGtJ6g_iQwFrwI7jpUDlufHJ);*/
+  background-image: url(../assets/picture_background.png);
+    /* Image is centered vertically and horizontally at all times */
+  background-position: center center;
+
+  /* Image doesn't repeat */
+  background-repeat: no-repeat;
+
+  /* Makes the image fixed in the viewport so that it doesn't move when
+     the content height is greater than the image height */
+  background-attachment: fixed;
+
+  /* This is what makes the background image rescale based on its container's size */
+  background-size: cover;
+
+  /* Pick a solid background color that will be displayed while the background image is loading */
+  background-color:#464646;
+}
+
+.photo-background-p{
+    /*background-image: linear-gradient(var(--light-gray-blue-a), var(--light-gray-blue-b));*/
+    /*background-image: url(https://drive.google.com/uc?export=view&id=1Yv3ouwoGHGtJ6g_iQwFrwI7jpUDlufHJ);*/
+  background-image: url(../assets/picture_background.png);
+    /* Image is centered vertically and horizontally at all times */
+  background-position: center center;
+
+  /* Image doesn't repeat */
+  background-repeat: no-repeat;
+
+  /* Makes the image fixed in the viewport so that it doesn't move when
+     the content height is greater than the image height */
+  background-attachment: fixed;
+
+  /* This is what makes the background image rescale based on its container's size */
+  background-size: cover;
+
+  /* Pick a solid background color that will be displayed while the background image is loading */
+  background-color:#464646;
+}
+
+.buttons-map-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttons-map-column {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Dropdowns */
+.dropdown-menu {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.dropdown-toggle {
+    width: 100%;
+    text-align: center;
+    font-size: calc(2rem + 1vw);
+}
+
+.dropdown-container {
+    padding: calc(1.5rem + 1vw) calc(3rem + 1vw);
+    text-align: center;
+}
+
+.Select div {
+    font-size: calc(1rem + 1vw);
+    background-color: black;
+}
+
+.has-value.Select--single>.Select-control .Select-value .Select-value-label {
+    color: white;
+}
+
+/* Tabs */
+.nav {
+    justify-content: center;
+}
+
+
+/* Section containers */
+.gray-container {
+    background-color: var(--light-gray-blue-a);
+}
+
+.meter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0rem 2rem 1rem 2rem;
+}
+
+.meters-layout-container {
+    padding: 0rem 5rem 3rem 5rem;
+}
+
+
+/* Meters */
+.meter-values {
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-right: 1rem;
+    color: #62c462;
+    font-size: 1.5rem;
+}
+
+.meter-labels {
+    margin-bottom: 0;
+    margin-left: 3rem;
+    color: #fff;
+    align-self: end;
+    font-size: 2rem;
+}
+
+.percentages {
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0;
+    margin-right: 2rem;
+    font-size: 2rem;
+}
+
+/* Progress bar */
+.progress-bar {
+    color: var(--dark-blue)
+}
+
+/* Buttons */
+.btn-outline-primary {
+    font-size: calc(1.5rem + 1vw);
+    background-color: #667181;
+}
+
+.btn-outline-success {
+    background-color: #333f54;
+}
+
+.btn-outline-info {
+    font-size: calc(1.5rem + 1vw);
+    background-color: #667181;
+}
+
+.btn-map {
+    margin: 0.35rem;
+}
+
+.pie-values {
+    font-weight: bold;
+    font-size: 4rem;
+    align-self: center;
+    margin: 0;
+}
+
+.pie-values-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.pie-values-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+# Map image
+.map-image {
+  width: -webkit-fill-available;
+}
