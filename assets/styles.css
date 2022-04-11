@@ -12,7 +12,7 @@
 }
 
 .footer-fcd {
-    font-size: 3rem;
+    font-size: 1.5rem;
 }
 
 .header-container {
@@ -57,7 +57,7 @@
 }
 
 .heading-container {;
-    margin-top: calc(1.5rem + 1vw);
+    padding-top: calc(1.5rem + 1vw);
 }
 
 .p-texts {
@@ -97,48 +97,12 @@
     font-weight: bold;
 }
 
+.sky-background {
+    background-color: #4197b1; /*dark skyblue*/
+}
+
+
 /* Backgrounds */
-.photo-background{
-    /*background-image: linear-gradient(var(--light-gray-blue-a), var(--light-gray-blue-b));*/
-    /*background-image: url(https://drive.google.com/uc?export=view&id=1Yv3ouwoGHGtJ6g_iQwFrwI7jpUDlufHJ);*/
-  background-image: url(../assets/picture_background.png);
-    /* Image is centered vertically and horizontally at all times */
-  background-position: center center;
-
-  /* Image doesn't repeat */
-  background-repeat: no-repeat;
-
-  /* Makes the image fixed in the viewport so that it doesn't move when
-     the content height is greater than the image height */
-  background-attachment: fixed;
-
-  /* This is what makes the background image rescale based on its container's size */
-  background-size: cover;
-
-  /* Pick a solid background color that will be displayed while the background image is loading */
-  background-color:#464646;
-}
-
-.photo-background-p{
-    /*background-image: linear-gradient(var(--light-gray-blue-a), var(--light-gray-blue-b));*/
-    /*background-image: url(https://drive.google.com/uc?export=view&id=1Yv3ouwoGHGtJ6g_iQwFrwI7jpUDlufHJ);*/
-  background-image: url(../assets/picture_background.png);
-    /* Image is centered vertically and horizontally at all times */
-  background-position: center center;
-
-  /* Image doesn't repeat */
-  background-repeat: no-repeat;
-
-  /* Makes the image fixed in the viewport so that it doesn't move when
-     the content height is greater than the image height */
-  background-attachment: fixed;
-
-  /* This is what makes the background image rescale based on its container's size */
-  background-size: cover;
-
-  /* Pick a solid background color that will be displayed while the background image is loading */
-  background-color:#464646;
-}
 
 .buttons-map-container {
     display: flex;
@@ -253,7 +217,14 @@
 
 .pie-values {
     font-weight: bold;
-    font-size: 4rem;
+    font-size: 2.5rem;
+    align-self: center;
+    margin: 0;
+}
+
+.pie-values-sm {
+    font-weight: bold;
+    font-size: 1.5rem;
     align-self: center;
     margin: 0;
 }
@@ -265,8 +236,9 @@
 
 .pie-values-row {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 2rem 0rem 5rem 0rem;
+    width: 100%;
 }
 
 # Map image

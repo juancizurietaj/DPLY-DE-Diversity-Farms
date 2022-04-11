@@ -49,7 +49,7 @@ def tab_creator(label_name, content, font_color):
     tab = dbc.Tab(content, label=label_name,
                   tab_style={"text-align": "center", "width": "25%"},
                   active_label_style={'color': '#fff', 'fontWeight': 'bold', "height": "100%"},
-                  label_style={"color": font_color, "fontSize": "calc(5rem + 1vw)"})
+                  label_style={"color": font_color, "fontSize": "calc(2.75rem + 1vw)"})
     return tab
 
 
@@ -151,30 +151,34 @@ def create_meter_layout(df, label_column, value_column):
     for i in range(len(labels)):
         children.append(
             html.Div(
-                [
-                    html.Div(
-                        [
-                            html.Div(
-                                [
-                                    html.P(labels[i], className="meter-labels")
-                                ], style={"display": "flex", "justify-content": "flex-start", "align-items": "center",
-                                          "width": "50%"}
-                            ),
-                            html.Div(
-                                [
-                                    html.P(str(values[i]) + " individuos ", className="meter-values",
-                                           style={"color": color_info}),
-                                    html.P(" | " + str(percentages[i]) + "% ", className="percentages")
-                                ], style={"display": "flex", "justify-content": "flex-end", "align-items": "center",
-                                          "width": "50%"}
-                            )
-                        ], style={"display": "flex", "justify-content": "space-between"}
-                    ),
-                    html.Div(
-                        html.Div(create_meter(percentages[i], "info", "#43484e", "100%", "colored"),
-                                 className="meter-container")
-                    )
-                ], style={"padding": "0rem 5rem"}
+                html.Div(
+                    [
+                        html.Div(
+                            [
+                                html.Div(
+                                    [
+                                        html.P(labels[i], className="meter-labels")
+                                    ], style={"display": "flex", "justify-content": "flex-start",
+                                              "align-items": "center",
+                                              "width": "50%"}
+                                ),
+                                html.Div(
+                                    [
+                                        html.P(str(values[i]) + " individuos ", className="meter-values",
+                                               style={"color": color_info}),
+                                        html.P(" | " + str(percentages[i]) + "% ", className="percentages")
+                                    ], style={"display": "flex", "justify-content": "flex-end",
+                                              "align-items": "center",
+                                              "width": "50%"}
+                                )
+                            ], style={"display": "flex", "justify-content": "space-between"}
+                        ),
+                        html.Div(
+                            html.Div(create_meter(percentages[i], "info", "#43484e", "100%", "colored"),
+                                     className="meter-container")
+                        )
+                    ], style={"padding": "0rem 4rem", "align-self": "center"}
+                )
             )
         )
 
@@ -192,9 +196,17 @@ def create_plants_meter_layout(df, label_column, value_column, examples_column):
 
     labels = df[label_column][0:5]
     values = df[value_column][0:5]
-    examples = ex_df[examples_column][0:5]
-    print(examples)
+    # TODO: Show the top 3 examples instead of first 3 examples:
+    examples_0 = data_p[data_p[label_column] == labels[0]][examples_column].dropna().unique()[0:3]
+    examples_1 = data_p[data_p[label_column] == labels[1]][examples_column].dropna().unique()[0:3]
+    examples_2 = data_p[data_p[label_column] == labels[2]][examples_column].dropna().unique()[0:3]
+    examples_3 = data_p[data_p[label_column] == labels[3]][examples_column].dropna().unique()[0:3]
+    examples_4 = data_p[data_p[label_column] == labels[4]][examples_column].dropna().unique()[0:3]
 
+    examples_array = [examples_0, examples_1, examples_2, examples_3, examples_4]
+
+    print(labels)
+    print(examples_0)
 
     percentages = np.round(values / sum(df["Numero de individuos"]) * 100, 2)
 
@@ -221,9 +233,15 @@ def create_plants_meter_layout(df, label_column, value_column, examples_column):
                             )
                         ], style={"display": "flex", "justify-content": "space-between"}
                     ),
+                    html.Div([
+                        html.P("Ej: " + ", ".join(map(str, examples_array[i])), className="meter-labels",
+                               style={"font-size": "1.25rem"})],
+                        style={"display": "flex", "flex-direction": "row"}),
                     html.Div(
-                        html.Div(create_meter(percentages[i], "info", "#43484e", "100%", "colored"),
-                                 className="meter-container")
+                        [html.Div(create_meter(percentages[i], "info", "#43484e", "100%", "colored"),
+                                  className="meter-container"),
+                         html.Br(),
+                         html.Br(), ]
                     )
                 ], style={"padding": "0rem 5rem"}
             )
@@ -294,19 +312,38 @@ def buttons_array(btn_clicks, btn_values):
     return btn_clicks, selections
 
 
-# Methods
+def importance_insectos(df):
+    layout = []
+
+    for i in range(len(df.index)):
+        layout.append(
+            html.Div(
+                [
+                    html.Label(df["Nombre comun"][i], className="labels-white"),
+                    html.P(df["Especie"][i], className="p-texts-white"),
+                    html.Img(src=df["Ubicacion imagen"][i]),
+                    html.P("Origen:")
+
+                ]
+            )
+        )
+
+    return layout
+
+
+# Methods & contents
 insects_methods = html.P(
-    "Aquí se presentan los datos obtenidos en 40 fincas que se encuentran bajo Acuerdos de Conservación en Santa Cruz. "
-    "Se colectaron insectos utilizando aspiradores y redes entomológicas en transectos ubicados en áreas cultivadas y no cultivadas. ",
+    "Se presentan los datos obtenidos en 40 fincas que se encuentran bajo Acuerdos de Conservación en Santa Cruz. "
+    "Se colectaron insectos utilizando aspiradores y redes en áreas cultivadas y no cultivadas. ",
     className="p-texts-white")
 insects_methods_2 = html.P(
-    "Los insectos colectados en el campo fueron almacenados en frascos con alcohol al 75% (colección húmeda) "
-    "o acetato de etilo (colección seca) y transportados hacia la Estación Científica Charles Darwin (FCD). "
-    "En el laboratorio, se limpió, clasificó e identificó cada individuo hasta el nivel taxonómico posible. "
-    "En esta herramienta se muestran los resultados de:",
+    "Los insectos colectados en el campo fueron almacenados en frascos y transportados hacia la Estación Científica "
+    "Charles Darwin (FCD). "
+    "En el laboratorio, se limpió, clasificó e identificó cada individuo. ",
     className="p-texts-white")
 insects_methods_3 = html.P(
-    "La información publicada refleja los datos obtenidos en 41 fincas que se encuentran bajo Acuerdos de Conservación en Santa Cruz. Para esto, se trazó transectos en las áreas cultivadas y no cultivadas para realizar colecta manual, utilizando aspiradores y redes entomológicas. Los insectos colectados fueron almacenados en frascos con alcohol al 75% (colección húmeda) o acetato de etilo (colección seca) y transportados hacia la Estación Científica Charles Darwin (FCD). En el laboratorio, se limpió, clasificó e identificó cada individuo hasta el nivel taxonómico posible.",
+    "La información publicada refleja los datos obtenidos en 41 fincas que se encuentran bajo Acuerdos de Conservación "
+    "en Santa Cruz. Para esto, se trazó transectos en las áreas cultivadas y no cultivadas para realizar colecta manual, utilizando aspiradores y redes entomológicas. ",
     className="p-texts-white")
 insects_methods_4 = html.P(
     "Utilice los botones debajo para mostrar los insectos más frecuentes por sector. "
@@ -314,26 +351,30 @@ insects_methods_4 = html.P(
     "Recuerde que un nombre común puede referirse a uno o varios nombres científicos.",
     className="p-texts-white")
 insects_methods_5 = html.P(
-    "La mayoría de los individuos analizados tienen origen desconocido y casi la misma proporción son insectos introducidos."
+    "La mayoría de los individuos analizados tienen origen desconocido y casi la misma proporción son insectos introducidos. "
     "Menos del 10% de los individuos que encontramos son endémicos o nativos.",
     className="p-texts-white")
 
 insects_methods_6 = html.P(
-    "El 100% de estos insectos ha sido identificado hasta algún nivel texonómico, y el 55% (1690 individuos) "
-    "han sido identificado hasta nivel de especie.",
+    "El 100% de estos insectos ha sido identificado hasta algún nivel, y el 55% (9093 individuos) "
+    "ha sido identificado hasta nivel de especie.",
     className="p-texts-white")
 
 def_endemic = html.P(
-    "Una especie endémica es una especie que sólo habita en Galápagos y no se encuentra naturalmente en otras partes del mundo.",
+    "Especie que sólo habita en Galápagos y no se encuentra naturalmente en otras partes del mundo.",
     className="p-texts")
 def_introduced = html.P(
-    "Una especie introducida es una especie que llegó a Galápagos a través de actividades humanas desde otras partes del mundo.",
+    "Especie que llegó a Galápagos a través de actividades humanas desde otras partes del mundo.",
     className="p-texts")
 def_native = html.P(
-    "Una especie nativa es una especie que llegó de manera natural a Galápagos y que se encuentra en otros lugares del mundo.",
+    "Especie que llegó de manera natural a Galápagos y que se encuentra en otros lugares del mundo.",
     className="p-texts")
-def_unknown = html.P("Cuando no existe certeza del orígen de una especie, se la cataloga como de origen desconocido.",
+def_unknown = html.P("Cuando no existe certeza del origen de una especie.",
                      className="p-texts")
+
+insects_importance_1 = html.P(
+    "Los insectos mostrados debajo han sido seleccionados por su importancia para la zona agrícola,"
+    "", className="p-texts-white")
 
 plants_methods = html.P(
     "Aquí se presentan los datos obtenidos en 40 fincas que se encuentran bajo Acuerdos de Conservación en Santa Cruz. "
@@ -349,6 +390,6 @@ plants_methods_2 = html.P(
 
 plants_methods_3 = html.P(
     "Utilice los botones debajo para mostrar las plantas más frecuentes por sector. "
-    "Los resultados se pueden ver por nombre común o por nombre científico. "
-    "Recuerde que un nombre común puede referirse a uno o varios nombres científicos.",
+    "Los resultados se pueden ver por nombre común o científico. "
+    "Recuerde que un nombre común puede referirse a una o varias especies.",
     className="p-texts-white")
