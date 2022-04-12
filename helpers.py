@@ -7,6 +7,7 @@ import numpy as np
 # Data load
 data = pd.read_csv(r"assets/data_insectos_simp.csv")
 data_p = pd.read_csv(r"assets/data_plantas_simp.csv")
+data_importance = pd.read_csv(r"assets/importance_insects.csv")
 
 ## Main chart
 total_insects = 16533
@@ -205,8 +206,8 @@ def create_plants_meter_layout(df, label_column, value_column, examples_column):
 
     examples_array = [examples_0, examples_1, examples_2, examples_3, examples_4]
 
-    print(labels)
-    print(examples_0)
+    # print(labels)
+    # print(examples_0)
 
     percentages = np.round(values / sum(df["Numero de individuos"]) * 100, 2)
 
@@ -313,20 +314,77 @@ def buttons_array(btn_clicks, btn_values):
 
 
 def importance_insectos(df):
-    layout = []
+    intro = html.Div([html.Label("Insectos de importancia agrícola", className="labels-white"),
+                      html.P("Debajo mostramos insectos de importancia agrícola que se pueden encontrar "
+                             "en las fincas de Santa Cruz", className="-texts-white")])
+
+    styles_two_column_lab = {"margin-right": "1rem", "padding": "0", "font-weight": "bold", "width": "50%", "text-align": "right"}
+    styles_two_column_val = {"padding": "0", "width": "50%", "text-align": "left"}
+    children = []
 
     for i in range(len(df.index)):
-        layout.append(
+
+        if df["Origen"][i] == "Endémico":
+            back_color = color_success
+        elif df["Origen"][i] == "Nativo":
+            back_color = color_warning
+        elif df["Origen"][i] == "Introducido":
+            back_color = color_danger
+        elif df["Origen"][i] == "Desconocido":
+            back_color = color_secondary
+
+        children.append(
             html.Div(
                 [
                     html.Label(df["Nombre comun"][i], className="labels-white"),
-                    html.P(df["Especie"][i], className="p-texts-white"),
-                    html.Img(src=df["Ubicacion imagen"][i]),
-                    html.P("Origen:")
-
-                ]
+                    html.P(df["Especie"][i], className="p-texts-white", style={"padding": "0", "font-style": "italic"}),
+                    html.Br(),
+                    html.P(df["Descripcion"][i], className="p-texts-white"),
+                    html.Br(),
+                    html.Div(html.Img(src=df["Ubicacion imagen"][i], width=600), style={"text-align": "center"}),
+                    html.P("Créditos fotográficos: " + df["Creditos fotograficos"][i], className="p-texts-small",
+                           style={"text-align": "center", "font-size": "1.75rem"}),
+                    # Two columns
+                    html.Div([
+                        html.P("Origen:", className="p-texts-white",
+                               style=styles_two_column_lab),
+                        html.P(df["Origen"][i], className="p-texts-white",
+                               style={"padding": "0", "color": back_color, "text-align": "left", "width": "50%"}),
+                    ], style={"display": "flex", "justify-content": "center"}),
+                    html.Br(),
+                    html.Div([
+                        html.P("Importancia agrícola:", className="p-texts-white",
+                               style=styles_two_column_lab),
+                        html.P(df["Importancia agricola"][i], className="p-texts-white",
+                               style=styles_two_column_val),
+                    ], style={"display": "flex", "justify-content": "center"}),
+                    html.Br(),
+                    html.Div([
+                        html.P("Hábito alimenticio:", className="p-texts-white",
+                               style=styles_two_column_lab),
+                        html.P(df["Habito alimenticio"][i], className="p-texts-white",
+                               style=styles_two_column_val),
+                    ], style={"display": "flex", "justify-content": "center"}),
+                    # One column
+                    html.Br(),
+                    dbc.Button(
+                        "Más información",
+                        href=df["Checklist"][i],
+                        target="_blank",
+                        color="info",
+                        outline=True
+                    ),
+                    # html.P("Más información:", className="p-texts-white",
+                    #        style={"margin-bottom": "0", "padding": "0"}),
+                    # html.P(df["Checklist"][i], className="p-texts-white"),
+                    html.Br(),
+                    html.Br(),
+                    html.Hr(),
+                ], style={"text-align": "center"}
             )
         )
+
+    layout = html.Div(children)
 
     return layout
 

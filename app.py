@@ -131,20 +131,7 @@ i_origin = html.Div([html.Br(),
                      ]),
                      ], className="gray-container", style={"margin-bottom": "8rem"})
 
-i_importance = html.Div(
-    [
-        html.Br(),
-        html.Label("Insectos de importancia agrícola", className="labels-white",
-                   style={"margin-top": "8rem"}),
-        insects_importance_1,
-        # importance_insects,
-    ]
-)
-
-insects_contents = [i_methods_a,
-                    i_methods_b,
-                    i_main,
-                    i_origin]
+i_importance = importance_insectos(data_importance)
 
 ## Plants
 p_methods_a = html.Div([html.Div(html.Label("¿De dónde provienen estos datos?", className="labels-white"),
@@ -232,7 +219,8 @@ app.layout = html.Div(
         html.Div(id="i-contents", children=[i_methods_a,
                                             i_methods_b,
                                             i_main,
-                                            i_origin]),
+                                            i_origin,
+                                            i_importance]),
         html.Div(id="p-contents", children=[p_methods_a,
                                             p_methods_b,
                                             p_main], style={"background-color": "#2c482c"}),
