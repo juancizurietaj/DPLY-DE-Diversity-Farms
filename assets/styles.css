@@ -56,6 +56,14 @@
     text-align: center;
 }
 
+.labels-white-md {
+    font-weight: bold;
+    color: #fff;
+    font-size: calc(3rem + 1vw);
+    width: 100%;
+    text-align: center;
+}
+
 .heading-container {;
     padding-top: calc(1.5rem + 1vw);
 }

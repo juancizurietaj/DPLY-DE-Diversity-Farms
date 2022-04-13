@@ -316,11 +316,11 @@ def buttons_array(btn_clicks, btn_values):
 def importance_insectos(df):
     intro = html.Div([html.Label("Insectos de importancia agrícola", className="labels-white"),
                       html.P("Debajo mostramos insectos de importancia agrícola que se pueden encontrar "
-                             "en las fincas de Santa Cruz", className="-texts-white")])
+                             "en las fincas de Santa Cruz", className="p-texts-white")])
 
     styles_two_column_lab = {"margin-right": "1rem", "padding": "0", "font-weight": "bold", "width": "50%", "text-align": "right"}
     styles_two_column_val = {"padding": "0", "width": "50%", "text-align": "left"}
-    children = []
+    children = [intro]
 
     for i in range(len(df.index)):
 
@@ -336,7 +336,7 @@ def importance_insectos(df):
         children.append(
             html.Div(
                 [
-                    html.Label(df["Nombre comun"][i], className="labels-white"),
+                    html.Label(df["Nombre comun"][i], className="labels-white-md"),
                     html.P(df["Especie"][i], className="p-texts-white", style={"padding": "0", "font-style": "italic"}),
                     html.Br(),
                     html.P(df["Descripcion"][i], className="p-texts-white"),
@@ -374,9 +374,7 @@ def importance_insectos(df):
                         color="info",
                         outline=True
                     ),
-                    # html.P("Más información:", className="p-texts-white",
-                    #        style={"margin-bottom": "0", "padding": "0"}),
-                    # html.P(df["Checklist"][i], className="p-texts-white"),
+                    html.Br(),
                     html.Br(),
                     html.Br(),
                     html.Hr(),
